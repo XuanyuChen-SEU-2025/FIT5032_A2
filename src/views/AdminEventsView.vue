@@ -15,7 +15,7 @@ const emptyForm = {
   location: '',
   facilitator: '',
   capacity: 20,
-  accessibility: '',
+  accessibilityInfo: '',
 }
 
 const form = reactive({ ...emptyForm })
@@ -53,7 +53,7 @@ function editEvent(event) {
     location: event.location,
     facilitator: event.facilitator,
     capacity: event.capacity,
-    accessibility: event.accessibility,
+    accessibilityInfo: event.accessibilityInfo,
   })
   editingId.value = event.id
   window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -149,8 +149,8 @@ function eventBookings(eventId) {
           </div>
           <div class="col-md-6">
             <label for="eventAccessibility" class="form-label">Accessibility information</label>
-            <input id="eventAccessibility" v-model="form.accessibility" class="form-control" maxlength="300" />
-            <FormError :message="errors.accessibility" />
+            <input id="eventAccessibility" v-model="form.accessibilityInfo" class="form-control" maxlength="300" />
+            <FormError :message="errors.accessibilityInfo" />
           </div>
         </div>
         <div class="d-flex flex-wrap gap-2 mt-4">

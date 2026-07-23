@@ -62,7 +62,7 @@ function bookEvent() {
                 <dt class="col-sm-4">Available places</dt>
                 <dd class="col-sm-8">{{ event.availablePlaces }}</dd>
                 <dt class="col-sm-4">Accessibility</dt>
-                <dd class="col-sm-8">{{ event.accessibility }}</dd>
+                <dd class="col-sm-8">{{ event.accessibilityInfo }}</dd>
                 <dt class="col-sm-4">Ratings</dt>
                 <dd class="col-sm-8">{{ event.ratingLabel }}</dd>
               </dl>

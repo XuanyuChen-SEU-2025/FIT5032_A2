@@ -66,7 +66,7 @@ export function validateEventForm(form, editingId = null) {
     'location',
     'facilitator',
     'capacity',
-    'accessibility',
+    'accessibilityInfo',
   ]
 
   requiredFields.forEach((field) => {

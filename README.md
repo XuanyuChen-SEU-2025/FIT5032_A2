@@ -84,7 +84,7 @@ This account is only for course demonstration. The password is not stored in `lo
 
 ## LocalStorage Data Model
 
-- `neighbourhub.events`: `id`, `title`, `description`, `category`, `language`, `date`, `time`, `location`, `facilitator`, `capacity`, `accessibility`.
+- `neighbourhub.events`: `id`, `title`, `description`, `category`, `language`, `date`, `time`, `location`, `facilitator`, `capacity`, `accessibilityInfo`.
 - `neighbourhub.users`: `id`, `name`, `email`, `passwordHash`, `passwordSalt`, `role`, `createdAt`.
 - `neighbourhub.bookings`: `id`, `userId`, `eventId`, `createdAt`, `status`.
 - `neighbourhub.ratings`: `id`, `userId`, `eventId`, `score`, `createdAt`, `updatedAt`.

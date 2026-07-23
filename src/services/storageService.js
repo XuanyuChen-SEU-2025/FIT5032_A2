@@ -85,7 +85,7 @@ export function normalizeEvent(event) {
     location: sanitizePlainText(event.location, 120),
     facilitator: sanitizePlainText(event.facilitator, 80),
     capacity: Number(event.capacity),
-    accessibility: sanitizePlainText(event.accessibility, 300),
+    accessibilityInfo: sanitizePlainText(event.accessibilityInfo, 300),
   }
 }
 

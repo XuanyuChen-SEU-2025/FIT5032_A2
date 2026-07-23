@@ -32,7 +32,7 @@ export const seedEvents = [
     location: 'Riverside Community Centre, Room 2',
     facilitator: 'Dr Priya Nair',
     capacity: 28,
-    accessibility: 'Wheelchair access, quiet room available and interpreters on request.',
+    accessibilityInfo: 'Wheelchair access, quiet room available and interpreters on request.',
   },
   {
     id: 'evt-healthy-eating-budget',
@@ -46,7 +46,7 @@ export const seedEvents = [
     location: 'Riverside Library Kitchen Space',
     facilitator: 'Lena Moore',
     capacity: 24,
-    accessibility: 'Step-free access and printed resources in large type.',
+    accessibilityInfo: 'Step-free access and printed resources in large type.',
   },
   {
     id: 'evt-womens-screening',
@@ -60,7 +60,7 @@ export const seedEvents = [
     location: 'Riverside Health Hub',
     facilitator: 'Nurse Amal Haddad',
     capacity: 20,
-    accessibility: 'Women-only session, lift access and private consultation corner.',
+    accessibilityInfo: 'Women-only session, lift access and private consultation corner.',
   },
   {
     id: 'evt-healthcare-system',
@@ -74,7 +74,7 @@ export const seedEvents = [
     location: 'NeighbourHub Learning Room',
     facilitator: 'Michael Chen',
     capacity: 30,
-    accessibility: 'Hearing loop, accessible toilets and translated handouts.',
+    accessibilityInfo: 'Hearing loop, accessible toilets and translated handouts.',
   },
   {
     id: 'evt-vaccination-information',
@@ -88,7 +88,7 @@ export const seedEvents = [
     location: 'Riverside Family Services Hall',
     facilitator: 'Dr Linh Tran',
     capacity: 26,
-    accessibility: 'Pram-friendly entry and multilingual information sheets.',
+    accessibilityInfo: 'Pram-friendly entry and multilingual information sheets.',
   },
   {
     id: 'evt-caregiver-support',
@@ -102,7 +102,7 @@ export const seedEvents = [
     location: 'Riverside Community Centre, Garden Room',
     facilitator: 'Sofia Williams',
     capacity: 22,
-    accessibility: 'Low-sensory room, accessible seating and companion seating.',
+    accessibilityInfo: 'Low-sensory room, accessible seating and companion seating.',
   },
   {
     id: 'evt-stress-new-migrants',
@@ -116,7 +116,7 @@ export const seedEvents = [
     location: 'NeighbourHub Wellness Studio',
     facilitator: 'Carlos Rivera',
     capacity: 18,
-    accessibility: 'Step-free access and calm lighting.',
+    accessibilityInfo: 'Step-free access and calm lighting.',
   },
   {
     id: 'evt-family-physical-activity',
@@ -130,6 +130,6 @@ export const seedEvents = [
     location: 'Riverside Sports Pavilion',
     facilitator: 'Asha Patel',
     capacity: 35,
-    accessibility: 'Accessible parking, outdoor shaded area and seated alternatives.',
+    accessibilityInfo: 'Accessible parking, outdoor shaded area and seated alternatives.',
   },
 ]

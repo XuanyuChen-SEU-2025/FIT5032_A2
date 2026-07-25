@@ -13,6 +13,8 @@ defineProps({
       <div class="d-flex flex-wrap gap-2 mb-3">
         <span class="badge badge-health">{{ event.category }}</span>
         <span class="badge text-bg-light border">{{ event.language }}</span>
+        <span v-if="event.isPast" class="badge text-bg-secondary">Ended</span>
+        <span v-else-if="event.availablePlaces === 0" class="badge text-bg-danger">Full</span>
       </div>
       <h2 class="h5 card-title">{{ event.title }}</h2>
       <p class="card-text text-secondary">{{ event.description }}</p>

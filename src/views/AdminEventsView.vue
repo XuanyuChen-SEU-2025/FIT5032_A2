@@ -89,7 +89,7 @@ function eventBookings(eventId) {
   <section class="container py-5">
     <h1 class="h2">Manage Events</h1>
     <p class="text-secondary">Create, edit, delete and inspect workshop bookings.</p>
-    <div v-if="message" class="alert alert-success">{{ message }}</div>
+    <div v-if="message" class="alert alert-success" role="status" aria-live="polite">{{ message }}</div>
 
     <form class="card shadow-sm mb-5" novalidate @submit.prevent="submit">
       <div class="card-body">

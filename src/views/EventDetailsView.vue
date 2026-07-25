@@ -74,9 +74,24 @@ function bookEvent() {
             <div class="card-body">
               <h2 class="h5">Book this event</h2>
               <p class="text-secondary">{{ event.availablePlaces }} places currently available.</p>
-              <button class="btn btn-primary w-100" type="button" @click="bookEvent">Book Event</button>
-              <p v-if="!currentUser" class="text-secondary small mt-2 mb-0">Login is required before booking.</p>
-              <p v-if="message" class="alert mt-3 mb-0" :class="message.includes('confirmed') ? 'alert-success' : 'alert-info'">
+              <button
+                class="btn btn-primary w-100"
+                type="button"
+                :disabled="event.isPast || event.availablePlaces === 0"
+                @click="bookEvent"
+              >
+                Book Event
+              </button>
+              <p v-if="event.isPast" class="text-secondary small mt-2 mb-0">This event has already ended.</p>
+              <p v-else-if="event.availablePlaces === 0" class="text-secondary small mt-2 mb-0">This event is fully booked.</p>
+              <p v-else-if="!currentUser" class="text-secondary small mt-2 mb-0">Login is required before booking.</p>
+              <p
+                v-if="message"
+                class="alert mt-3 mb-0"
+                role="status"
+                aria-live="polite"
+                :class="message.includes('confirmed') ? 'alert-success' : 'alert-info'"
+              >
                 {{ message }}
               </p>
             </div>

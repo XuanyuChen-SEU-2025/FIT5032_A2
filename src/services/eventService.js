@@ -32,6 +32,7 @@ export function enrichEvent(event) {
     ...event,
     capacity: Number(event.capacity),
     availablePlaces: getAvailablePlaces(event),
+    isPast: isEventPast(event),
     ratingAverage: summary.average,
     ratingCount: summary.count,
     ratingLabel: summary.label,

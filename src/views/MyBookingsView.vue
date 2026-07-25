@@ -20,7 +20,7 @@ function cancel(id) {
   <section class="container py-5">
     <h1 class="h2">My Bookings</h1>
     <p class="text-secondary">Your current and cancelled health workshop bookings.</p>
-    <div v-if="message" class="alert alert-info">{{ message }}</div>
+    <div v-if="message" class="alert alert-info" role="status" aria-live="polite">{{ message }}</div>
 
     <div v-if="!bookings.length" class="alert alert-info">
       You do not have any bookings yet.

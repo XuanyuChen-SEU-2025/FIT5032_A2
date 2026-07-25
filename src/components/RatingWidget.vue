@@ -60,6 +60,6 @@ function submitRating(score) {
         {{ score }}
       </button>
     </div>
-    <p v-if="message" class="alert alert-info mt-3 mb-0">{{ message }}</p>
+    <p v-if="message" class="alert alert-info mt-3 mb-0" role="status" aria-live="polite">{{ message }}</p>
   </div>
 </template>

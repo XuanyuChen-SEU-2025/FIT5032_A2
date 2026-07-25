@@ -70,7 +70,7 @@ This account is only for course demonstration. The password is not stored in `lo
 - Log in and log out.
 - Browse and filter health workshops.
 - View full event details.
-- Book available events.
+- Book available events. Booking is disabled for events that are full or have already ended, and the reason is shown.
 - View and cancel personal bookings.
 - Submit or update a 1 to 5 rating for an event.
 
@@ -105,6 +105,15 @@ Basic controls include plain-text sanitisation, email normalisation, role valida
 Vue default text interpolation helps avoid directly executing HTML from user input. The application does not use `v-html`, `innerHTML` or `eval`. User input is validated and passed through plain-text sanitisation before storage. Passwords are stored as a salt and SHA-256 hash rather than plaintext. Roles are checked by both Vue Router guards and service/action functions.
 
 `localStorage` is not suitable for production storage of sensitive authentication data. A real system should use server-side authentication, HTTPS, HttpOnly cookies and server-side access control. This project does not claim production-grade security.
+
+## Accessibility Notes
+
+Basic accessibility practices are applied but the application has not been formally tested against WCAG 2.1 AA:
+
+- Every form input has an associated `<label>`, and the navigation and rating controls use `aria-label` / `aria-pressed`.
+- Booking, rating, cancellation and admin feedback messages use `role="status"` with `aria-live="polite"` so dynamic updates are announced by screen readers.
+- Availability is not communicated by colour alone: event cards show text `Full` / `Ended` badges and the detail page shows a written reason when booking is unavailable.
+- Interactive controls are native `<button>` and link elements so they remain keyboard operable, and focus styles are visible.
 
 ## Known Limitations
 

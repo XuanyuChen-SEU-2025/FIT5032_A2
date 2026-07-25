@@ -3,3 +3,8 @@ dist/
 .DS_Store
 *.log
 .env
+
+# Assignment submission materials (kept out of the source repository)
+*.pdf
+*.docx
+*.mp4

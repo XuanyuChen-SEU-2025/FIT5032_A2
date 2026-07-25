@@ -30,7 +30,11 @@ defineProps({
         <dt class="col-4">Rating</dt>
         <dd class="col-8">{{ event.ratingLabel }}</dd>
       </dl>
-      <RouterLink class="btn btn-primary mt-auto" :to="{ name: 'event-details', params: { id: event.id } }">
+      <RouterLink
+        class="btn btn-primary mt-auto"
+        :to="{ name: 'event-details', params: { id: event.id } }"
+        :aria-label="`View details for ${event.title}`"
+      >
         View Details
       </RouterLink>
     </div>

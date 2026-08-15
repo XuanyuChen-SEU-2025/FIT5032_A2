@@ -1,123 +1,207 @@
 # NeighbourHub
 
-NeighbourHub is a Vue 3 front-end web application for Riverside Migrant Health Charity. It supports migrant community health workshops, bookings, ratings and a small admin management workflow for FIT5032 Assignment 2.
+NeighbourHub is a responsive Vue 3 single-page application developed for **FIT5032 Assignment 2**. It supports Riverside Migrant Health Charity in publishing accessible health workshops for migrant communities and gives community members a simple way to discover, book and rate those events.
 
-## Project Overview
+The application is a front-end assessment prototype. All records are stored in the browser, so no backend or external database is required.
 
-The application helps community users browse health education sessions, register, log in, book workshops, view their bookings and rate events. Administrators can review summary statistics and manage the workshop list.
+## Core Features
 
-## Target Community
+### Public visitors
 
-The target users are migrant communities seeking accessible, low-cost health education and support services, including mental health information, nutrition workshops, women health seminars, vaccination information and caregiver support.
+- View the charity overview and featured workshops.
+- Browse all workshops and filter by keyword, category, language and availability.
+- View workshop details, including date, location, facilitator, capacity, accessibility information and aggregate rating.
+- Register a community-member account and log in.
 
-## Implemented Business Requirements
+### Authenticated users
 
-- A.1: Vue 3, Vite, Vue single-file components, Composition API with `script setup`, Vue Router and npm scripts.
-- A.2: Bootstrap 5 responsive layouts, responsive navbar, containers, rows, columns, multi-column cards, mobile-friendly forms and horizontally scrollable admin tables.
-- B.1: Registration, login, event form and booking validations.
-- B.2: Dynamic events, users, bookings and ratings using JavaScript data structures plus `localStorage`.
-- C.1: Register, login, logout, current session and protected routes using `sessionStorage`.
-- C.2: Route meta roles and global navigation guards for `user` and `admin`.
-- C.3: Aggregated event ratings with one rating per user per event.
-- C.4: Basic front-end security controls for input sanitisation, role checks and storage parsing.
+- Book an upcoming workshop when places are available.
+- Prevent duplicate active bookings for the same workshop.
+- View active and cancelled bookings.
+- Cancel an active booking.
+- Submit or update one rating from 1 to 5 for each workshop.
 
-## Installation
+### Administrators
+
+- View dashboard totals for users, events, active bookings and average ratings.
+- Create, edit and delete workshops.
+- Inspect the bookings associated with each workshop.
+- Access admin pages through role-protected routes.
+- Re-check the administrator role inside event-management actions.
+
+## Technology Stack
+
+| Area | Technology |
+| --- | --- |
+| Framework | Vue 3.5 with Composition API and `<script setup>` |
+| Build tool | Vite 7 |
+| Routing | Vue Router 4 |
+| UI | Bootstrap 5 and custom CSS |
+| Persistence | `localStorage` and `sessionStorage` |
+| Password processing | Browser Web Crypto API (`crypto.subtle`, SHA-256) |
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20.19+ or 22.12+
+- npm
+
+### Install and run
 
 ```bash
+git clone https://github.com/XuanyuChen-SEU-2025/FIT5032_A2.git
+cd FIT5032_A2
 npm install
-```
-
-On Windows PowerShell, if `npm.ps1` is blocked by execution policy, run:
-
-```bash
-npm.cmd install
-```
-
-## Run
-
-```bash
 npm run dev
 ```
 
-PowerShell alternative:
+Open the local URL printed by Vite, normally `http://localhost:5173`.
 
-```bash
+On Windows PowerShell, use `npm.cmd` if script execution policy blocks `npm.ps1`:
+
+```powershell
+npm.cmd install
 npm.cmd run dev
 ```
 
-## Build
+### Production build
 
 ```bash
 npm run build
+npm run preview
 ```
 
-PowerShell alternative:
+The compiled files are written to `dist/`. A production host must support SPA history fallback so direct visits to routes such as `/events` are served with `index.html`.
 
-```bash
-npm.cmd run build
+## Demo Administrator
+
+| Field | Value |
+| --- | --- |
+| Email | `admin@neighbourhub.org.au` |
+| Password | `Admin123!` |
+
+This account is seeded for course demonstration only. Its password is represented by a precomputed salt and SHA-256 hash rather than stored as plaintext.
+
+To test the normal-user workflow, create an account through the **Register** page. New accounts always receive the `user` role.
+
+## Suggested Test Flow
+
+1. Browse and filter workshops without logging in.
+2. Open a workshop and select **Book Event** to confirm that login is required.
+3. Register a user, log in and book an available upcoming workshop.
+4. Open **My Bookings**, cancel the booking and confirm its status changes to `cancelled`.
+5. Add a rating on a workshop detail page, then select another score to update it.
+6. Log out and sign in with the demo administrator account.
+7. Review dashboard statistics and create, edit or delete a workshop from **Manage Events**.
+
+## Application Routes
+
+| Route | Access | Purpose |
+| --- | --- | --- |
+| `/` | Public | Home page and featured workshops |
+| `/events` | Public | Searchable and filterable workshop list |
+| `/events/:id` | Public | Workshop details, booking and rating controls |
+| `/register` | Guest only | Community-member registration |
+| `/login` | Guest only | User and administrator login |
+| `/my-bookings` | User or admin | Current user's booking history |
+| `/admin` | Admin only | Summary dashboard |
+| `/admin/events` | Admin only | Workshop and booking management |
+| `/access-denied` | Public | Role-permission feedback |
+
+Unknown URLs are handled by a dedicated not-found page. Protected routes redirect unauthenticated visitors to login and preserve the intended destination.
+
+## Project Structure
+
+```text
+FIT5032_A2/
+├── src/
+│   ├── assets/          # Global visual styles
+│   ├── components/      # Navbar, event card, form error and rating UI
+│   ├── data/            # Workshop seed data and allowed filter options
+│   ├── router/          # Routes and authentication/role guards
+│   ├── services/        # Auth, booking, event, rating, security and storage logic
+│   ├── views/           # Public, user, admin and error pages
+│   ├── App.vue          # Shared application shell and footer
+│   └── main.js          # Bootstrap, router and initial-data setup
+├── index.html
+├── package.json
+└── vite.config.js
 ```
 
-## Demo Admin Credentials
+The views focus on presentation and user interaction. Business rules and browser-storage operations are separated into service modules so that route checks are not the only protection around privileged actions.
 
-- Email: `admin@neighbourhub.org.au`
-- Password: `Admin123!`
+## Browser Data Model
 
-This account is only for course demonstration. The password is not stored in `localStorage`; the demo admin user is seeded with a precomputed salt and SHA-256 hash.
+| Storage key | Storage | Main fields |
+| --- | --- | --- |
+| `neighbourhub.events` | `localStorage` | `id`, `title`, `description`, `category`, `language`, `date`, `time`, `location`, `facilitator`, `capacity`, `accessibilityInfo` |
+| `neighbourhub.users` | `localStorage` | `id`, `name`, `email`, `passwordHash`, `passwordSalt`, `role`, `createdAt` |
+| `neighbourhub.bookings` | `localStorage` | `id`, `userId`, `eventId`, `createdAt`, `status`, optional `cancelledAt` |
+| `neighbourhub.ratings` | `localStorage` | `id`, `userId`, `eventId`, `score`, `createdAt`, `updatedAt` |
+| `neighbourhub.session` | `sessionStorage` | `userId`, `role`, `createdAt` |
 
-## User Features
+Initial workshops and the demo administrator are added on first load. Data persists in the current browser profile until that site's storage is cleared.
 
-- Register as a normal `user`.
-- Log in and log out.
-- Browse and filter health workshops.
-- View full event details.
-- Book available events. Booking is disabled for events that are full or have already ended, and the reason is shown.
-- View and cancel personal bookings.
-- Submit or update a 1 to 5 rating for an event.
+To reset the application, open the browser developer tools for the local site, clear its Local Storage and Session Storage, and reload the page. The initial workshops and demo administrator will be seeded again.
 
-## Admin Features
+## Validation and Business Rules
 
-- Log in as the demo admin.
-- View total users, total events, active bookings and average rating.
-- Create, edit and delete events.
-- View bookings linked to each event.
-- Admin actions re-check the current role at the service/action layer.
-
-## LocalStorage Data Model
-
-- `neighbourhub.events`: `id`, `title`, `description`, `category`, `language`, `date`, `time`, `location`, `facilitator`, `capacity`, `accessibilityInfo`.
-- `neighbourhub.users`: `id`, `name`, `email`, `passwordHash`, `passwordSalt`, `role`, `createdAt`.
-- `neighbourhub.bookings`: `id`, `userId`, `eventId`, `createdAt`, `status`.
-- `neighbourhub.ratings`: `id`, `userId`, `eventId`, `score`, `createdAt`, `updatedAt`.
-- `neighbourhub.session` is stored in `sessionStorage` and contains `userId`, `role` and `createdAt`.
-
-## Validation Approach
-
-Registration validates required fields, email format, password strength, password confirmation, name length and duplicate email. Login validates required fields, email format and shows the generic message `Invalid email or password.` for credential failures. Event forms validate required fields, positive integer capacity, non-past dates, title and description lengths and allowed language options. Booking validation checks login state, event existence, available places, duplicate active bookings and ended events.
+- Registration requires a name, a valid and unique email address, and matching passwords with at least eight characters, uppercase, lowercase and a number.
+- Login uses a generic credential-error message and validates both required fields and email format.
+- Workshop forms require all fields, a positive whole-number capacity, a non-past date, a unique title and an allowed language value.
+- Booking requires an authenticated user, an existing future event, remaining capacity and no duplicate active booking.
+- Ratings must be whole numbers from 1 to 5, with one stored rating per user and workshop.
+- Deleting a workshop also deletes its associated bookings and ratings.
 
 ## Security Approach
 
-This front-end authentication system is implemented for assessment demonstration only. A production application would require secure server-side authentication and database access control.
+This project demonstrates basic client-side safeguards:
 
-Basic controls include plain-text sanitisation, email normalisation, role validation, safe JSON parsing with fallbacks, route-level role checks and action-level admin checks. Passwords are salted and hashed with the browser Web Crypto API using SHA-256 before user records are stored.
+- Plain-text input is trimmed, length-limited and stripped of HTML-like tags before storage.
+- Vue text interpolation is used instead of `v-html`, `innerHTML` or `eval`.
+- Emails are normalised before comparison.
+- Stored JSON and record shapes are validated before use.
+- Passwords are salted and hashed with the Web Crypto API before user records are stored.
+- Vue Router guards enforce authentication and role metadata.
+- Administrator mutations perform a second role check in the service layer.
 
-## Security Reflection
+These controls do **not** provide production-grade security. Because the application has no server, users can still inspect or alter browser data. A real deployment would require server-side authentication and authorisation, a protected database, HTTPS, secure password hashing designed for credentials, and secure session cookies.
 
-Vue default text interpolation helps avoid directly executing HTML from user input. The application does not use `v-html`, `innerHTML` or `eval`. User input is validated and passed through plain-text sanitisation before storage. Passwords are stored as a salt and SHA-256 hash rather than plaintext. Roles are checked by both Vue Router guards and service/action functions.
+## Accessibility and Responsive Design
 
-`localStorage` is not suitable for production storage of sensitive authentication data. A real system should use server-side authentication, HTTPS, HttpOnly cookies and server-side access control. This project does not claim production-grade security.
+- Responsive Bootstrap grid layouts, navigation, cards, forms and an overflow-safe admin table.
+- Associated labels for form controls and visible validation feedback.
+- Native links and buttons for keyboard operation, with visible focus styles.
+- `aria-label`, `aria-pressed`, `role="status"` and `aria-live="polite"` where appropriate.
+- Written **Full** and **Ended** states so availability is not communicated by colour alone.
+- Accessibility information displayed for every workshop.
+- Larger minimum control sizes on small screens.
 
-## Accessibility Notes
+The interface includes accessibility-minded implementation, but it has not undergone a formal WCAG 2.1 AA audit.
 
-Basic accessibility practices are applied but the application has not been formally tested against WCAG 2.1 AA:
+## FIT5032 Assignment 2 Coverage
 
-- Every form input has an associated `<label>`, and the navigation and rating controls use `aria-label` / `aria-pressed`.
-- Booking, rating, cancellation and admin feedback messages use `role="status"` with `aria-live="polite"` so dynamic updates are announced by screen readers.
-- Availability is not communicated by colour alone: event cards show text `Full` / `Ended` badges and the detail page shows a written reason when booking is unavailable.
-- Interactive controls are native `<button>` and link elements so they remain keyboard operable, and focus styles are visible.
+| Requirement | Implementation |
+| --- | --- |
+| A.1 | Vue 3, Vite, reusable single-file components, Composition API and Vue Router |
+| A.2 | Bootstrap responsive layouts plus custom mobile and admin-table styling |
+| B.1 | Registration, login, workshop and booking validation |
+| B.2 | Dynamic events, users, bookings and ratings persisted in browser storage |
+| C.1 | Registration, login, logout and session-aware navigation |
+| C.2 | Route metadata, global guards and user/admin role handling |
+| C.3 | Aggregate workshop ratings with one rating per user per workshop |
+| C.4 | Input sanitisation, safe storage parsing, password hashing and action-level role checks |
 
 ## Known Limitations
 
-- Authentication and data persistence are front-end only and can be modified by a user with browser developer tools.
-- There is no backend, cloud database, Firebase, email API, map API, OpenAI API, advanced charts or deployment.
-- Data is local to the browser and device.
-- Category D, E and F features are intentionally not implemented.
+- Authentication, authorisation and persistence are entirely client-side.
+- Data is limited to the current browser profile and device.
+- There is no backend, cloud database, email service, map integration or external API.
+- Password hashing uses SHA-256 for demonstration and is not a replacement for a server-side password-hashing algorithm such as Argon2 or bcrypt.
+- Automated unit, component and end-to-end tests are not included.
+- Assignment categories D, E and F are outside the implemented scope.
+
+## Academic Context
+
+NeighbourHub was created as a university assessment prototype. It is not a deployed health service and must not be used to store real personal, medical or credential data.

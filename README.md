@@ -1,6 +1,8 @@
-# NeighbourHub
+# Riverside Migrant Health Charity
 
-NeighbourHub is a responsive Vue 3 single-page application developed for **FIT5032 Assignment 2**. It supports Riverside Migrant Health Charity in publishing accessible health workshops for migrant communities and gives community members a simple way to discover, book and rate those events.
+**FIT5032 Assignment 2 – Community Health Workshop Web Application**
+
+This project is a responsive Vue 3 single-page application developed for Riverside Migrant Health Charity. It helps migrant communities access practical, low-cost and culturally aware health education by providing a simple way to discover, book and rate community health workshops.
 
 The application is a front-end assessment prototype. All records are stored in the browser, so no backend or external database is required.
 
@@ -204,4 +206,4 @@ The interface includes accessibility-minded implementation, but it has not under
 
 ## Academic Context
 
-NeighbourHub was created as a university assessment prototype. It is not a deployed health service and must not be used to store real personal, medical or credential data.
+This web application was created as a university assessment prototype. It is not a deployed health service and must not be used to store real personal, medical or credential data.
